@@ -4,6 +4,37 @@
   
     
     <entry>
+      <title>手搓一个年会抽奖页面</title>
+      <link href="/2026/09/11/%E5%B9%B4%E4%BC%9A%E6%8A%BD%E5%A5%96%E9%A1%B5%E9%9D%A2/"/>
+      <url>/2026/09/11/%E5%B9%B4%E4%BC%9A%E6%8A%BD%E5%A5%96%E9%A1%B5%E9%9D%A2/</url>
+      
+        <content type="html"><![CDATA[<h2 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h2><p>纯静态页面，无需部署后端接口服务，数据持久化依赖浏览器存储。</p><p>下载项目执行构建将打包到 <code>./dist</code> 目录，可自行挂载至相应服务器上浏览使用。</p><p><em>注意：对于设置比较严格的图片服务器，可能出现图片跨域无法展示的问题。</em></p><h3 id="技术栈"><a href="#技术栈" class="headerlink" title="技术栈"></a>技术栈</h3><ul><li><strong>React</strong> - 开发框架</li><li><strong>Three</strong> - <code>3D</code>效果实现</li><li><strong>Zustand</strong> - 状态管理</li><li><strong>Dexie</strong> - <code>IndexedDB</code>极简封装库</li><li><strong>Antd</strong> - <code>UI</code>组件库</li><li><strong>Exceljs</strong> - <code>Excel</code>文件操作管理</li></ul><h3 id="线上地址"><a href="#线上地址" class="headerlink" title="线上地址"></a>线上地址</h3><p>预览地址：<a href="https://bratrindersteak.github.io/party-lottery/">https://bratrindersteak.github.io/party-lottery/</a><br>项目地址：<a href="https://github.com/Bratrindersteak/party-lottery/">https://github.com/Bratrindersteak/party-lottery/</a></p><h3 id="本地开发"><a href="#本地开发" class="headerlink" title="本地开发"></a>本地开发</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">克隆项目</span></span><br><span class="line">git clone https://github.com/Bratrindersteak/party-lottery.git</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">安装依赖</span></span><br><span class="line">pnpm i 或 pnpm install</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">启动本地服务</span></span><br><span class="line">pnpm run dev</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">打包</span></span><br><span class="line">pnpm run build</span><br></pre></td></tr></table></figure><h2 id="抽奖流程"><a href="#抽奖流程" class="headerlink" title="抽奖流程"></a>抽奖流程</h2><p>1.初始状态没有数据，可以选择手动录入，也可选择使用默认数据快速开始并熟悉游戏流程。<br><img src="/img/lottery/default.png" alt="default"></p><p>2.这里我们选择【使用默认数据】，可以看到成员、奖项、标题都有了数据。<br>有了这些数据，就可以进行抽奖了。<br><img src="/img/lottery/init.png" alt="init"></p><p>3.通过单击左侧的奖项列表项选取所要抽取的奖项。奖项也支持拖拽调整顺序。<br>奖项抽取的顺序是自上而下循环抽取的，所以调整奖项顺序也就可以控制抽奖顺序。<br><img src="/img/lottery/award-list.png" alt="award-list"></p><p>4.点击底部的【进入抽奖】按钮就会进入抽奖环节。成员卡片墙会组成卡片球并水平逆时针自转。同时会播放【开场音乐】。<br><img src="/img/lottery/ready.png" alt="ready"></p><p>5.点击【开始抽奖】按钮，卡片球高速旋转。同时高亮提示当前正在抽取的奖项。并切换播放【抽奖音乐】。<br><img src="/img/lottery/running.png" alt="running"></p><p>6.点击【开奖】按钮，卡片球停止旋转，并选出获奖者。并播放【开奖音效】。<br>开奖之后可以选择保留本次结果并【继续抽取】其他奖项，也可以选择放弃本次结果并【重新抽取】。<br><img src="/img/lottery/finished.png" alt="finished"></p><p>7.顶部右侧的操作栏提供少数辅助功能，依次是静音切换、语言切换、进入后台设置界面。</p><h2 id="后台配置"><a href="#后台配置" class="headerlink" title="后台配置"></a>后台配置</h2><h3 id="通用配置功能"><a href="#通用配置功能" class="headerlink" title="通用配置功能"></a>通用配置功能</h3><p>由于数据持久化依赖浏览器存储，且数据量可能会很大，所以这里添加了【一键清空数据】的功能，用于抽奖页面不再使用后手动释放存储空间。<br><em><strong>注</strong>：算法暂不支持切换，默认使用随机算法。</em><br><img src="/img/lottery/general.png" alt="general"></p><h3 id="成员录入管理"><a href="#成员录入管理" class="headerlink" title="成员录入管理"></a>成员录入管理</h3><p>支持 <code>excel</code> 文件批量导入数据，但请使用本页面提供的模板。<br><img src="/img/lottery/member.png" alt="member"></p><h3 id="奖项配置管理"><a href="#奖项配置管理" class="headerlink" title="奖项配置管理"></a>奖项配置管理</h3><p>已经抽取完毕的奖项在这里可以重置为未抽取，同时也会清除对应的抽奖记录。<br><img src="/img/lottery/award.png" alt="award"></p><h3 id="获奖记录管理"><a href="#获奖记录管理" class="headerlink" title="获奖记录管理"></a>获奖记录管理</h3><p>支持导出为 <code>excel</code> 文件保存。<br><img src="/img/lottery/record.png" alt="record"></p><h3 id="音乐配置管理"><a href="#音乐配置管理" class="headerlink" title="音乐配置管理"></a>音乐配置管理</h3><p>内置3个默认音效，也支持自行上传。<br><img src="/img/lottery/music.png" alt="music"></p><h3 id="使用说明介绍"><a href="#使用说明介绍" class="headerlink" title="使用说明介绍"></a>使用说明介绍</h3><p><img src="/img/lottery/instruction.png" alt="instruction"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 技术 </category>
+          
+          <category> 项目 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 前端 </tag>
+            
+            <tag> JavaScript </tag>
+            
+            <tag> 手搓 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>JS对象的遍历</title>
       <link href="/2026/08/13/JS%E5%AF%B9%E8%B1%A1%E7%9A%84%E9%81%8D%E5%8E%86/"/>
       <url>/2026/08/13/JS%E5%AF%B9%E8%B1%A1%E7%9A%84%E9%81%8D%E5%8E%86/</url>
